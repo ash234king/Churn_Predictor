@@ -74,19 +74,19 @@ if st.button("🚀 Predict Churn"):
         'EstimatedSalary':[estimated_salary]
     })
 
-geo_encoded=label_encoder_geo.transform(pd.DataFrame({'Geography':[geography]}))
-geo_encoded_df=pd.DataFrame(geo_encoded,columns=label_encoder_geo.get_feature_names_out(['Geography']))
+    geo_encoded=label_encoder_geo.transform(pd.DataFrame({'Geography':[geography]}))
+    geo_encoded_df=pd.DataFrame(geo_encoded,columns=label_encoder_geo.get_feature_names_out(['Geography']))
 
 
-input_data=pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1)
-input_data = input_data[feature_order]
-input_data_scaled=scaler.transform(input_data)
+    input_data=pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1)
+    input_data = input_data[feature_order]
+    input_data_scaled=scaler.transform(input_data)
 
-prediction=model.predict(input_data_scaled)
-prediction_proba=prediction[0][0]
+    prediction=model.predict(input_data_scaled)
+    prediction_proba=prediction[0][0]
 
-st.subheader(f'📊Churn Probability: {prediction_proba:.2f}')
-if(prediction_proba>0.5):
-    st.error('⚠️ The customer is **likely to churn**')
-else:
-    st.success('✅The customer is not likely to churn')
+    st.subheader(f'📊Churn Probability: {prediction_proba:.2f}')
+    if(prediction_proba>0.5):
+        st.error('⚠️ The customer is **likely to churn**')
+    else:
+        st.success('✅The customer is not likely to churn')
