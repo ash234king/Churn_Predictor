@@ -65,7 +65,8 @@ x_test=scaler.transform(x_test)
 with open ('scaler.pkl','wb') as file:
     pickle.dump(scaler,file)
 
-
+with open("feature_columns.pkl", "wb") as f:
+    pickle.dump(x.columns.tolist(), f)
 
 
 ##ANN

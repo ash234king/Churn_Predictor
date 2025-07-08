@@ -1,13 +1,13 @@
 import streamlit as st
 import numpy as np
-import keras
 import tensorflow as tf
 from sklearn.preprocessing import StandardScaler,LabelEncoder,OneHotEncoder
 import pandas as pd
 import pickle
+from keras.models import load_model
 
 ## load the trained model
-model=keras.models.load_model('model.keras')
+model=load_model('model.keras')
 
 with open('onehot_encoder_geo.pkl','rb') as file:
     label_encoder_geo=pickle.load(file)
@@ -17,6 +17,11 @@ with open('label_encoder_gender.pkl','rb') as file:
 
 with open('scaler.pkl','rb') as file:
     scaler=pickle.load(file)
+
+with open("feature_columns.pkl", "rb") as f:
+    feature_order = pickle.load(f)
+
+
 
 
 ## streamlit app
@@ -29,7 +34,7 @@ balance=st.number_input('Balance')
 credit_score=st.number_input('Credit Score')
 estimated_salary=st.number_input('Estimated Salary')
 tenure=st.slider('Tenure',0,10)
-num_of_products=st.slder('Number of Products')
+num_of_products=st.slider('Number of Products')
 has_cr_card=st.selectbox('Has Credit Card',[0,1])
 is_active_member=st.selectbox('Is Active Member',[0,1])
 
@@ -37,7 +42,7 @@ is_active_member=st.selectbox('Is Active Member',[0,1])
 ##Prepare the input data
 input_data=pd.DataFrame({
     'CreditScore':[credit_score],
-    'Gender':[gender],
+    'Gender':label_encoder_gender.transform([gender])[0],
     'Age':[age],
     'Tenure':[tenure],
     'Balance':[balance],
@@ -47,11 +52,12 @@ input_data=pd.DataFrame({
     'EstimatedSalary':[estimated_salary]
 })
 
-geo_encoded=label_encoder_geo.transform(pd.DataFrame({'Geography':[[geography]]}))
+geo_encoded=label_encoder_geo.transform(pd.DataFrame({'Geography':[geography]}))
 geo_encoded_df=pd.DataFrame(geo_encoded,columns=label_encoder_geo.get_feature_names_out(['Geography']))
 
-input_data=pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1)
 
+input_data=pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1)
+input_data = input_data[feature_order]
 input_data_scaled=scaler.transform(input_data)
 
 prediction=model.predict(input_data_scaled)
