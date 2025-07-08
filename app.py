@@ -42,10 +42,25 @@ st.markdown("""
             border-radius: 15 px;
             box-shadow: 0 4px 12 px rgba(0,0,0,0.4);
             }
+            .stButton{
+                display: flex;
+                justify-content: center;
+            }
+            div.stButton > button:first-child{
+                background-color: #ff4b4b;
+                color: white;
+                border: none;
+                padding: 0.6em 2em;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            }
+            div.stButton > button:first-child:hover{
+                background-color: #ff1e1e;
+            }
             """,unsafe_allow_html=True)
 
 ## streamlit app
-st.markdown("<h1 class='title-style'>Customer Churn Prediction</h1>",unsafe_allow_html=True)
+st.markdown("<h1 class='title-style'>🔮Customer Churn Prediction</h1>",unsafe_allow_html=True)
 
 st.markdown("<div class='input-container'>",unsafe_allow_html=True)
 geography=st.selectbox('Geography',label_encoder_geo.categories_[0])
