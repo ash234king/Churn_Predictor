@@ -103,7 +103,7 @@ model.compile(optimizer=opt,loss=loss,metrics=['accuracy'])
 
 ## setup the tensorflow
 from keras.callbacks import EarlyStopping,TensorBoard
-log_dir="logs/fit"+datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+log_dir="logs/fit/"+datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorflow_callback=TensorBoard(log_dir=log_dir,histogram_freq=1)
 
 ## Setup early stopping
@@ -116,4 +116,5 @@ history=model.fit(
 )
 
 model.save('model.keras')
+
 
