@@ -7,7 +7,7 @@ import pickle
 from keras.models import load_model
 
 ## load the trained model
-model=load_model('model.keras')
+model=load_model('model.h5')
 
 with open('onehot_encoder_geo.pkl','rb') as file:
     label_encoder_geo=pickle.load(file)

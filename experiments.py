@@ -116,6 +116,6 @@ history=model.fit(
     callbacks=[tensorflow_callback,early_stopping_callback]
 )
 
-model.save('model.keras')
+model.save('model.h5')
 
 

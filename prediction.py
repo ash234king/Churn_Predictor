@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 
 #loading of model
-model=load_model('model.keras')
+model=load_model('model.h5')
 
 ##load the encode and scaler
 with open('onehot_encoder_geo.pkl','rb') as file:
