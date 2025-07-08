@@ -71,7 +71,6 @@ with open("feature_columns.pkl", "wb") as f:
 
 ##ANN
 import keras
-import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.callbacks import EarlyStopping,TensorBoard
@@ -116,6 +115,6 @@ history=model.fit(
     callbacks=[tensorflow_callback,early_stopping_callback]
 )
 
-model.save('model.h5')
+model.save('model.keras')
 
 
