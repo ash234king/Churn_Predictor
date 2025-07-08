@@ -5,6 +5,7 @@ import pandas as pd
 import pickle
 from keras.models import load_model
 
+st.set_page_config(page_title="Churn Predictor", page_icon="🔮", layout="centered")
 ## load the trained model
 model=load_model('model.keras')
 
@@ -21,11 +22,32 @@ with open("feature_columns.pkl", "rb") as f:
     feature_order = pickle.load(f)
 
 
-
+st.markdown("""
+      <style>
+            .stApp{
+                background-color: #0e1117;
+                color: #ffffff;
+            }
+            .title-style{
+                text-align: center;
+                font-size:3em;
+                font-weight: bold;
+                color: #ff4b4b;
+                margin-top: 10px;
+                margin-bottom: 30px;  
+            }
+            .input-container{
+               background-color: #1e1e1e;
+               padding: 30 px;
+            border-radius: 15 px;
+            box-shadow: 0 4px 12 px rgba(0,0,0,0.4);
+            }
+            """,unsafe_allow_html=True)
 
 ## streamlit app
-st.title('Customer Churn Prediction')
+st.markdown("<h1 class='title-style'>Customer Churn Prediction</h1>",unsafe_allow_html=True)
 
+st.markdown("<div class='input-container'>",unsafe_allow_html=True)
 geography=st.selectbox('Geography',label_encoder_geo.categories_[0])
 gender=st.selectbox('Gender',label_encoder_gender.classes_)
 age=st.slider('Age',18,92)
@@ -37,19 +59,20 @@ num_of_products=st.slider('Number of Products')
 has_cr_card=st.selectbox('Has Credit Card',[0,1])
 is_active_member=st.selectbox('Is Active Member',[0,1])
 
-
+st.markdown("</div>",unsafe_allow_html=True)
 ##Prepare the input data
-input_data=pd.DataFrame({
-    'CreditScore':[credit_score],
-    'Gender':label_encoder_gender.transform([gender])[0],
-    'Age':[age],
-    'Tenure':[tenure],
-    'Balance':[balance],
-    'NumOfProducts':[num_of_products],
-    'HasCrCard':[has_cr_card],
-    'IsActiveMember':[is_active_member],
-    'EstimatedSalary':[estimated_salary]
-})
+if st.button("🚀 Predict Churn"):
+    input_data=pd.DataFrame({
+        'CreditScore':[credit_score],
+        'Gender':label_encoder_gender.transform([gender])[0],
+        'Age':[age],
+        'Tenure':[tenure],
+        'Balance':[balance],
+        'NumOfProducts':[num_of_products],
+        'HasCrCard':[has_cr_card],
+        'IsActiveMember':[is_active_member],
+        'EstimatedSalary':[estimated_salary]
+    })
 
 geo_encoded=label_encoder_geo.transform(pd.DataFrame({'Geography':[geography]}))
 geo_encoded_df=pd.DataFrame(geo_encoded,columns=label_encoder_geo.get_feature_names_out(['Geography']))
@@ -62,8 +85,8 @@ input_data_scaled=scaler.transform(input_data)
 prediction=model.predict(input_data_scaled)
 prediction_proba=prediction[0][0]
 
-st.write(f'Churn Probability: {prediction_proba:.2f}')
+st.subheader(f'📊Churn Probability: {prediction_proba:.2f}')
 if(prediction_proba>0.5):
-    st.write('The customer is likely to churn')
+    st.error('⚠️ The customer is **likely to churn**')
 else:
-    st.write('The customer is not likely to churn')
+    st.success('✅The customer is not likely to churn')
