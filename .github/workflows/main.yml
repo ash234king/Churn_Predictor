@@ -57,4 +57,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: yash43256/Churn-predictor:latest
+          tags: yash43256/churn-predictor:latest
