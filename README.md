@@ -69,7 +69,7 @@ churn-predictor-app/
 │
 ├── .github/
 │   └── workflows/
-│       └── streamlit-deploy.yml # GitHub Actions workflow
+│       └── main.yml # GitHub Actions workflow
 │
 ├── Dockerfile                  # Docker configuration
 ├── requirements.txt            # Python dependencies
