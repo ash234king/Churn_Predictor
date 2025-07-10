@@ -49,31 +49,34 @@ Prediction Output:
 ---
 
 ## 📁 Project Structure
+```
 churn-predictor-app/
 │
-├── app.py                    # Entry point: Streamlit frontend
-├── prediction.py             # Logic to load model and make predictions
-├── eda.py                    # EDA visualizations and summaries
-├── experiments.py            # Model training script
+├── app.py                      # Entry point: Streamlit app
+├── prediction.py               # Logic for loading model and predicting
+├── eda.py                      # Exploratory data analysis
+├── experiments.py              # Training pipeline for the ANN
 │
 ├── data/
-│   └── Churn_Modelling.csv   # Raw dataset
+│   └── Churn_Modelling.csv     # Source dataset
 │
 ├── models/
-│   ├── model.keras               # Trained ANN model
-│   ├── scaler.pkl                # StandardScaler
-│   ├── onehot_encoder_geo.pkl    # Geography encoder
-│   ├── label_encoder_gender.pkl  # Gender encoder
-│   └── feature_columns.pkl       # Feature column names
+│   ├── model.keras             # Trained ANN model
+│   ├── scaler.pkl              # StandardScaler object
+│   ├── onehot_encoder_geo.pkl  # OneHotEncoder for 'Geography'
+│   ├── label_encoder_gender.pkl# LabelEncoder for 'Gender'
+│   └── feature_columns.pkl     # Final feature column names
 │
 ├── .github/
 │   └── workflows/
-│       └── streamlit-deploy.yml  # CI/CD workflow
+│       └── streamlit-deploy.yml # GitHub Actions workflow
 │
-├── Dockerfile                # Docker setup
-├── requirements.txt          # Dependencies
-├── .gitignore                # Git ignore rules
-├── README.md                 # Project README
+├── Dockerfile                  # Docker configuration
+├── requirements.txt            # Python dependencies
+├── .gitignore                  # Git ignore rules
+└── README.md                   # Project documentation
+```
+
 
 ## 📦 Installation
 

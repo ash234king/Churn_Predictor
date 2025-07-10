@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler,LabelEncoder
 import pickle
 
-df=pd.read_csv("Churn_Modelling.csv")
+df=pd.read_csv("data/Churn_Modelling.csv")
 print(df.head())
 
 ## preprocess the data
@@ -43,10 +43,10 @@ print(data.head())
 
 ## save the encoders and scaler
 
-with open('label_encoder_gender.pkl','wb') as file:
+with open('models/label_encoder_gender.pkl','wb') as file:
     pickle.dump(label_encoder_gender,file)
 
-with open('onehot_encoder_geo.pkl','wb') as file:
+with open('models/onehot_encoder_geo.pkl','wb') as file:
     pickle.dump(onehot_encoder_geo,file)
 
 ## divide the dataset into independednt and dependednt features
@@ -62,10 +62,10 @@ scaler=StandardScaler()
 x_train=scaler.fit_transform(x_train)
 x_test=scaler.transform(x_test)
 
-with open ('scaler.pkl','wb') as file:
+with open ('models/scaler.pkl','wb') as file:
     pickle.dump(scaler,file)
 
-with open("feature_columns.pkl", "wb") as f:
+with open("models/feature_columns.pkl", "wb") as f:
     pickle.dump(x.columns.tolist(), f)
 
 
@@ -115,6 +115,6 @@ history=model.fit(
     callbacks=[tensorflow_callback,early_stopping_callback]
 )
 
-model.save('model.keras')
+model.save('models/model.keras')
 
 

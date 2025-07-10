@@ -5,16 +5,16 @@ import pandas as pd
 import numpy as np
 
 #loading of model
-model=load_model('model.keras')
+model=load_model('models/model.keras')
 
 ##load the encode and scaler
-with open('onehot_encoder_geo.pkl','rb') as file:
+with open('models/onehot_encoder_geo.pkl','rb') as file:
     label_encoder_geo=pickle.load(file)
 
-with open('label_encoder_gender.pkl','rb') as file:
+with open('models/label_encoder_gender.pkl','rb') as file:
     label_encoder_gender=pickle.load(file)
 
-with open('scaler.pkl','rb') as file:
+with open('models/scaler.pkl','rb') as file:
     scaler=pickle.load(file)
 
 input_data={
