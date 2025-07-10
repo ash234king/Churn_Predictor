@@ -83,6 +83,6 @@ churn-predictor-app/
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/yourusername/churn-predictor-app.git
+git clone https://github.com/ash234king/churn-predictor-app.git
 cd churn-predictor-app
 pip install -r requirements.txt
