@@ -57,6 +57,7 @@ y=data['Exited']
 ##split the data in training and testing sets
 x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
 
+x_train.to_csv("data/training_data.csv")
 ## scale down the features
 scaler=StandardScaler()
 x_train=scaler.fit_transform(x_train)
