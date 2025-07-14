@@ -4,8 +4,11 @@ from sklearn.preprocessing import StandardScaler,LabelEncoder,OneHotEncoder
 import pandas as pd
 import pickle
 from keras.models import load_model
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 
 st.set_page_config(page_title="Churn Predictor", page_icon="🔮", layout="centered")
 ## load the trained model
