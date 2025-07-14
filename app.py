@@ -4,6 +4,8 @@ from sklearn.preprocessing import StandardScaler,LabelEncoder,OneHotEncoder
 import pandas as pd
 import pickle
 from keras.models import load_model
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 st.set_page_config(page_title="Churn Predictor", page_icon="🔮", layout="centered")
 ## load the trained model
@@ -21,6 +23,10 @@ with open('models/scaler.pkl','rb') as file:
 with open("models/feature_columns.pkl", "rb") as f:
     feature_order = pickle.load(f)
 
+def load_training_data():
+    return pd.read_csv('data/training_data.csv')
+
+training_data=load_training_data()
 
 st.markdown("""
       <style>
@@ -105,3 +111,39 @@ if st.button("🚀 Predict Churn"):
         st.error('⚠️ The customer is **likely to churn**')
     else:
         st.success('✅The customer is not likely to churn')
+    
+
+    st.markdown("---")
+    st.subheader("📈 Feature Distributions with Your Input")
+
+    
+    plt.figure(figsize=(6, 4))
+    sns.histplot(training_data['Age'], kde=True, bins=30, color='skyblue', edgecolor='black')
+    plt.axvline(age, color='red', linestyle='--', label='Given Input')
+    plt.title(f'Distribution of Age')
+    plt.xlabel('Age')
+    plt.ylabel('Density')
+    plt.legend()
+    st.pyplot(plt.gcf())
+    plt.clf()
+
+    counter=training_data['CreditScore'].value_counts()
+    counter=counter.head(10)
+    labels=counter.index
+    values=counter.values
+    plt.figure(figsize=(10,8))
+    plt.pie(values,labels=labels,autopct='%1.1f%%')
+    plt.title('Pie chart for top 10 categories of Credit Score')
+    plt.text(0, -1.2, f'Given Input: {int(credit_score)}', ha='center', color='red', fontsize=10)
+    st.pyplot(plt.gcf())
+    plt.clf()
+
+    plt.figure(figsize=(6, 5))
+    sns.boxplot(y=training_data['Balance'], color='skyblue')
+    plt.scatter(0, balance, color='red', label=f'Given Input: {balance:.0f}', zorder=5)
+    plt.title('Box Plot of Balance')
+    plt.ylabel('Balance')
+    plt.legend()
+    st.pyplot(plt.gcf())
+    plt.clf()
+
